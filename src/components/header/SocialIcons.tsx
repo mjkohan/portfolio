@@ -14,7 +14,7 @@ export default function SocialIcons({ className = '' }: Props) {
         <div className={className}>
             {icons.map(({ href, Icon }) => (
                 <a href={href} key={href} target="_blank" rel="noreferrer">
-                    <Icon className="w-6 h-6" /> {/* You can adjust the size here */}
+                    <Icon className="w-6 h-6" />
                 </a>
             ))}
         </div>

@@ -1,13 +1,11 @@
 import Navbar from './Navbar'
-import OffCanvasMenu from './OffCanvasMenu'
-import MobileHeader from './MobileHeader'
+
 
 export default function Header() {
     return (
-        <header className="w-full container mx-auto">
+        <header className="w-full max-w-7xl container mx-auto">
                 <Navbar />
-                {/*<OffCanvasMenu />*/}
-                {/*<MobileHeader />*/}
+
         </header>
     )
 }

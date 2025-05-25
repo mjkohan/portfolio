@@ -55,7 +55,7 @@ body {
     --popover-foreground: oklch(0.145 0 0);
     --primary: #62a92b;
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: #272730;
+    --secondary: white;
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
@@ -117,13 +117,66 @@ body {
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
+  
+  /* Add smooth transitions for the sheet component */
+  .sheet-overlay {
+    @apply transition-opacity duration-300;
+  }
+  
+  .sheet-content {
+    @apply transition-transform duration-300;
+  }
 }
 
 .secondary-bg{
-    background-color: var(--secondary);
+    background-color: #272730 !important;
     color: var(--secondary-foreground);
 }
+/* Custom property for animation */
+@property --border-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes rotate-border {
+    to {
+        --border-angle: 360deg;
+    }
+}
+
+.animated-border {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background:
+            linear-gradient(var(--secondary), var(--secondary)) padding-box,
+            conic-gradient(
+                    from var(--border-angle),
+                    var(--secondary) 90%,
+                    var(--primary) 100%
+            ) border-box;
+    animation: rotate-border 10s linear infinite;
+}
+
+
+@theme {
+    @keyframes marquee {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-33.3333%);
+        }
+    }
+
+    --animation-marquee: marquee 20s linear infinite;
+}
+
+
+
+
+
