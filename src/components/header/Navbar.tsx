@@ -13,7 +13,7 @@ export default function Navbar() {
                 className="flex justify-between items-center w-full py-0.5 px-2 sm:py-1 sm:px-3 md:py-1.5 md:px-4 lg:py-2 lg:px-6">
                 <Logo text="MJ.KohanKan"/>
                 <div className="hidden xl:flex">
-                    <NavMenu/>
+                    <NavMenu place={'header'}/>
                 </div>
 
                 <SocialIcons className="hidden md:flex gap-3"/>

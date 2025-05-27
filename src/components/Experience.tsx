@@ -5,7 +5,7 @@ import {SectionContainer} from "@/components/ui/SectionContainer";
 const Experience = () => {
   return (
     <SectionContainer className="py-16">
-      <div className="grid grid-cols-1 gap-8">
+      <div id={'experience'} className="grid grid-cols-1 gap-8">
         <div className="mb-4">
           <h3 className="text-green-500 text-lg font-medium">• Experience</h3>
           <h2 className="text-4xl font-bold">
@@ -22,7 +22,7 @@ const Experience = () => {
           <div className="col-span-1">
             <div className="space-y-6">
               <ExperienceCard 
-                company="Acid mad"
+                company="Acsid Maad"
                 logo="/images/ac.png"
                 period="2024 - 2025"
               />

@@ -6,12 +6,12 @@ import { SectionContainer } from '../ui/SectionContainer'
 export default function HeroSection() {
   return (
     <SectionContainer>
-      <div className="flex flex-col lg:flex-row items-end gap-8 lg:gap-12">
+      <div id={'about'} className="flex flex-col lg:flex-row items-end gap-8 lg:gap-12">
         <div className="relative w-full max-w-[300px] lg:max-w-[400px] aspect-square">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 rounded-[30%] rotate-3"></div>
           <div className="relative h-full w-full overflow-hidden rounded-[28%] border-2 border-border">
             <Image 
-              src="/profile.jpg"
+              src="/images/profile.png"
               alt="Profile" 
               fill 
               className="object-cover"

@@ -1,14 +1,17 @@
 import {navItems} from "@/constants";
-
-
-export default function NavMenu() {
+import Link from "next/link";
+export default function NavMenu({place}:{place:string}) {
     return (
         <ul className="flex gap-8">
             {navItems.map((item) => (
-                <li key={item.href}>
-                    <a href={item.href} className={` text-lg transition ${item.href === "#about" ? '' : '!text-gray-400'}`}>
+                <li key={item.href+ "-" + place}>
+                    <Link href={item.href} className={ `cursor-pointer
+                     ${(place==='header') ? '!hover:text-white' : ''}
+                     ${(place==='header' && item.href==='#about') ? '!text-white' : ''}
+
+                     hover:text-foreground text-gray-400 text-lg transition `}>
                         {item.label}
-                    </a>
+                    </Link>
                 </li>
             ))}
         </ul>

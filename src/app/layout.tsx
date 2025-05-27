@@ -22,9 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={dmMono.className} suppressHydrationWarning>
+    <html lang="en" className={`!scroll-smooth ` + dmMono.className} suppressHydrationWarning>
       <body
-        className={``}
       >
       <ThemeProvider
           attribute="class"

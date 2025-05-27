@@ -1,8 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
 import { CgAwards } from "react-icons/cg";
-import { FaLaptopCode } from "react-icons/fa";
 import { GrUserExpert } from "react-icons/gr";
-import { FaHeart } from "react-icons/fa6";
 import { MdComputer } from "react-icons/md";
 
 interface CounterItemProps {
@@ -17,30 +15,7 @@ function CounterItem({ icon, endValue, label, duration = 2000 }: CounterItemProp
     const countRef = useRef<HTMLDivElement>(null);
     const hasAnimated = useRef(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const [entry] = entries;
-                if (entry.isIntersecting && !hasAnimated.current) {
-                    hasAnimated.current = true;
-                    animateCounter();
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (countRef.current) {
-            observer.observe(countRef.current);
-        }
-
-        return () => {
-            if (countRef.current) {
-                observer.unobserve(countRef.current);
-            }
-        };
-    }, []);
-
-    const animateCounter = () => {
+    const animateCounter = useCallback(() => {
         const startTime = Date.now();
         const updateCounter = () => {
             const currentTime = Date.now();
@@ -52,7 +27,33 @@ function CounterItem({ icon, endValue, label, duration = 2000 }: CounterItemProp
             }
         };
         requestAnimationFrame(updateCounter);
-    };
+    }, [duration, endValue]);
+
+    useEffect(() => {
+        const target = countRef.current;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const [entry] = entries;
+                if (entry.isIntersecting && !hasAnimated.current) {
+                    hasAnimated.current = true;
+                    animateCounter();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (target) {
+            observer.observe(target);
+        }
+
+        return () => {
+            if (target) {
+                observer.unobserve(target);
+            }
+        };
+    }, [animateCounter]);
+
 
     return (
         <div className="flex flex-col items-start  text-center">
@@ -71,7 +72,7 @@ export function StatsCounter() {
         <section
             className="bg-cover bg-center py-16 px-4"
             style={{
-                backgroundImage: "url('/bg.png')",
+                backgroundImage: "url('/images/bg.png')",
                 backgroundRepeat: 'repeat',
             }}
         >
@@ -83,7 +84,7 @@ export function StatsCounter() {
                 />
                 <CounterItem
                     icon={<MdComputer className="text-3xl" />}
-                    endValue={10}
+                    endValue={14}
                     label="Projects Completed"
                 />
 
