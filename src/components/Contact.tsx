@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { SectionContainer } from '@/components/ui/SectionContainer';
-import { FiPhone, FiMail, FiMapPin } from 'react-icons/fi';
+import {  FiMail, FiMapPin } from 'react-icons/fi';
 
 const Contact = () => {
   return (

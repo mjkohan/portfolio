@@ -2,51 +2,48 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import {SectionContainer} from "@/components/ui/SectionContainer";
+type CompanyKey = "Acsid Maad" | "Badals" | "Pixium Labs";
 
 const Experience = () => {
-  const [selectedCompany, setSelectedCompany] = useState("Acsid Maad");
 
-  const experienceData = {
+  const [selectedCompany, setSelectedCompany] = useState<CompanyKey>("Acsid Maad");
+
+  const experienceData: Record<CompanyKey, {
+    title: string;
+    description: string[];
+    technologies: string[];
+  }> = {
     "Acsid Maad": {
       title: "Front-End Developer",
       description: [
         "Designed and developed a web‑based systems using Next.js, ",
-        "Integrated authentication and authorization mechanisms for secure user access and role‑" +
-        "based management",
-        "Collaborated closely with backend developers to design and consume RESTful APIs for " +
-        "financial transactions and reporting."
+        "Integrated authentication and authorization mechanisms for secure user access and role‑based management",
+        "Collaborated closely with backend developers to design and consume RESTful APIs for financial transactions and reporting."
       ],
-      technologies: ["Next.js","JavaScript" ,"TypeScript", "SHADCN/UI",'Zustand']
+      technologies: ["Next.js", "JavaScript", "TypeScript", "SHADCN/UI", "Zustand"]
     },
     "Badals": {
       title: "Front-End Developer",
       description: [
-        " Developed front‑end applications using TypeScript and Next.js, implemented dynamic " +
-        "and interactive UI components, optimized performance for better user experience, inte" +
-        "grated GraphQL APIs, and handled authentication using Context API",
-        "Integrated payment gateways such as Thawani and Stripe, and implemented seamless " +
-        "order tracking with FedEx shipment services",
-        "Designed and implemented a scalable multi‑tenant and multi‑language architecture for " +
-        "front‑end applications, ensuring adaptability and maintainability.",
-          'Developed a visually appealing and responsive landing page to enhance user engagement ' +
-          'and brand presence.'
+        "Developed front‑end applications using TypeScript and Next.js, implemented dynamic and interactive UI components, optimized performance for better user experience, integrated GraphQL APIs, and handled authentication using Context API",
+        "Integrated payment gateways such as Thawani and Stripe, and implemented seamless order tracking with FedEx shipment services",
+        "Designed and implemented a scalable multi‑tenant and multi‑language architecture for front‑end applications, ensuring adaptability and maintainability.",
+        "Developed a visually appealing and responsive landing page to enhance user engagement and brand presence."
       ],
-      technologies: ["Next.js", "JavaScript", "TypeScript", "Tailwind", "MUI",'GraphQl']
+      technologies: ["Next.js", "JavaScript", "TypeScript", "Tailwind", "MUI", "GraphQl"]
     },
     "Pixium Labs": {
       title: "Front-End Engineer",
       description: [
-        "Developed responsive and scalable web applications using React.js and Tailwind CSS, en" +
-        "suring seamless user experiences.",
+        "Developed responsive and scalable web applications using React.js and Tailwind CSS, ensuring seamless user experiences.",
         "Integrated and optimized RESTful APIs for efficient data fetching and state management",
-        "Implemented advanced UI components, dynamic dashboards, and real‑time features to " +
-        "enhance user engagement.",
-          'Utilized Google Analytics and other tracking tools to monitor user interactions, improve' +
-          'performance, and optimize user experience.'
+        "Implemented advanced UI components, dynamic dashboards, and real‑time features to enhance user engagement.",
+        "Utilized Google Analytics and other tracking tools to monitor user interactions, improve performance, and optimize user experience."
       ],
       technologies: ["React.js", "Next.js", "JavaScript", "Tailwind"]
     }
   };
+
 
   return (
     <SectionContainer className="py-16">
