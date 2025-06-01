@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   metadataBase: new URL("https://portfolio-beige-seven-69.vercel.app/"),
+  other : {"google-site-verification":"yzjWgZLvhgWIfeiXXdgkyWKooXWHpsGvf3Kpv61MWlk"}
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -46,6 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`!scroll-smooth ` + dmMono.className} suppressHydrationWarning>
+
     <GoogleTagManager  gtmId="G-DLPEQ9CZWJ" />
       <body
       >
