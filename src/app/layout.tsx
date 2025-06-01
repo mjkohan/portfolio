@@ -3,6 +3,7 @@ import "./globals.css";
 import React from "react";
 import { ThemeProvider } from "@/providers/theme-provider"
 import { DM_Mono } from 'next/font/google';
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const dmMono = DM_Mono({
     subsets: ['latin'],
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`!scroll-smooth ` + dmMono.className} suppressHydrationWarning>
+    <GoogleTagManager  gtmId="G-DLPEQ9CZWJ" />
       <body
       >
       <ThemeProvider
