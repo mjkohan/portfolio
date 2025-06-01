@@ -7,14 +7,36 @@ import { GoogleTagManager } from '@next/third-parties/google'
 
 const dmMono = DM_Mono({
     subsets: ['latin'],
-    weight: ['400', '500', '300'], // Include desired font weights
+    weight: ['400', '500', '300'],
     display: 'swap',
 });
 
 
 export const metadata: Metadata = {
-  title: "Mohammad Javad - Front-End developer",
-  description: "Front-End developer",
+  title: "Mohammad Javad Kohankan- Front-End Developer",
+  description: "Experienced Front-End Developer specializing in building responsive and user-friendly web applications.",
+  keywords: [ "Mohammad Javad", "kohankan",
+    "محمدجواد کهن کن", "typescript", "Front-End Developer", "Web Development", "React", "Next.js", "JavaScript", "tailwind"
+  ],
+  authors: [{ name: "Mohammad Javad Kohankan", url: "https://portfolio-beige-seven-69.vercel.app/" }],
+  creator: "Mohammad Javad Kohankan",
+  openGraph: {
+    title: "Mohammad Javad Kohankan- Front-End Developer",
+    description: "Experienced Front-End Developer specializing in building responsive and user-friendly web applications.",
+    url: "https://your-portfolio-url.com",
+    siteName: "Mohammad Javad Kohankan Portfolio",
+    images: [
+      {
+        url: "/public/images/profile.png",
+        width: 1200,
+        height: 630,
+        alt: "Mohammad Javad Kohankan Profile Picture",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  metadataBase: new URL("https://portfolio-beige-seven-69.vercel.app/"),
 };
 
 export default function RootLayout({
