@@ -104,13 +104,16 @@ const Projects = () => {
                 allowTouchMove={false}
                 className="relative"
                 loop={true}
+                autoplay={{ delay: 5000 }}
+                modules={[ Autoplay]}
+
             >
               {projects.map((project) => (
                   <SwiperSlide key={project.id + project.title}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
                       <div className="relative aspect-video bg-secondary 0 rounded-lg">
                         <Swiper
-                            autoplay={{ delay: 5000 }}
+                            autoplay={{ delay: 1000 }}
                             modules={[Pagination, Autoplay]}
                             pagination={{ clickable: true }}
                             spaceBetween={10}

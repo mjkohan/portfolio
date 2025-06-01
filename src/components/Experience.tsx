@@ -1,8 +1,53 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import Image from 'next/image';
 import {SectionContainer} from "@/components/ui/SectionContainer";
 
 const Experience = () => {
+  const [selectedCompany, setSelectedCompany] = useState("Acsid Maad");
+
+  const experienceData = {
+    "Acsid Maad": {
+      title: "Front-End Developer",
+      description: [
+        "Designed and developed a web‑based systems using Next.js, ",
+        "Integrated authentication and authorization mechanisms for secure user access and role‑" +
+        "based management",
+        "Collaborated closely with backend developers to design and consume RESTful APIs for " +
+        "financial transactions and reporting."
+      ],
+      technologies: ["Next.js","JavaScript" ,"TypeScript", "SHADCN/UI",'Zustand']
+    },
+    "Badals": {
+      title: "Front-End Developer",
+      description: [
+        " Developed front‑end applications using TypeScript and Next.js, implemented dynamic " +
+        "and interactive UI components, optimized performance for better user experience, inte" +
+        "grated GraphQL APIs, and handled authentication using Context API",
+        "Integrated payment gateways such as Thawani and Stripe, and implemented seamless " +
+        "order tracking with FedEx shipment services",
+        "Designed and implemented a scalable multi‑tenant and multi‑language architecture for " +
+        "front‑end applications, ensuring adaptability and maintainability.",
+          'Developed a visually appealing and responsive landing page to enhance user engagement ' +
+          'and brand presence.'
+      ],
+      technologies: ["Next.js", "JavaScript", "TypeScript", "Tailwind", "MUI",'GraphQl']
+    },
+    "Pixium Labs": {
+      title: "Front-End Engineer",
+      description: [
+        "Developed responsive and scalable web applications using React.js and Tailwind CSS, en" +
+        "suring seamless user experiences.",
+        "Integrated and optimized RESTful APIs for efficient data fetching and state management",
+        "Implemented advanced UI components, dynamic dashboards, and real‑time features to " +
+        "enhance user engagement.",
+          'Utilized Google Analytics and other tracking tools to monitor user interactions, improve' +
+          'performance, and optimize user experience.'
+      ],
+      technologies: ["React.js", "Next.js", "JavaScript", "Tailwind"]
+    }
+  };
+
   return (
     <SectionContainer className="py-16">
       <div id={'experience'} className="grid grid-cols-1 gap-8">
@@ -25,38 +70,42 @@ const Experience = () => {
                 company="Acsid Maad"
                 logo="/images/ac.png"
                 period="2024 - 2025"
+                isSelected={selectedCompany === "Acsid Maad"}
+                onClick={() => setSelectedCompany("Acsid Maad")}
               />
               <ExperienceCard 
                 company="Badals"
                 logo="/images/badals.jpg"
                 period="2023 - 2024"
+                isSelected={selectedCompany === "Badals"}
+                onClick={() => setSelectedCompany("Badals")}
               />
               <ExperienceCard 
                 company="Pixium Labs"
                 logo="/images/pixium.jpg"
                 period="2021 - 2023"
+                isSelected={selectedCompany === "Pixium Labs"}
+                onClick={() => setSelectedCompany("Pixium Labs")}
               />
-
             </div>
           </div>
 
           <div className="col-span-1 md:col-span-2">
             <div className="mb-8">
               <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-                Front-End Developer
+                {experienceData[selectedCompany].title}
               </h3>
               <ul className="space-y-4">
-                <ExperienceItem text="Led development of scalable web applications, improving performance and user experience for millions of users." />
-                <ExperienceItem text="Implemented modern JavaScript frameworks to enhance interactive functionality." />
-                <ExperienceItem text="Collaborated with cross-functional teams to integrate new features seamlessly." />
+                {experienceData[selectedCompany].description.map((text, index) => (
+                  <ExperienceItem key={index} text={text} />
+                ))}
               </ul>
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <TechBadge name="React" />
-              <TechBadge name="Next.js" />
-              <TechBadge name="TypeScript" />
-              <TechBadge name="Tailwind" />
+              {experienceData[selectedCompany].technologies.map((tech, index) => (
+                <TechBadge key={index} name={tech} />
+              ))}
             </div>
           </div>
         </div>
@@ -65,11 +114,30 @@ const Experience = () => {
   );
 };
 
-const ExperienceCard = ({ company, logo, period }: { company: string; logo: string; period: string }) => {
+const ExperienceCard = ({ 
+  company, 
+  logo, 
+  period, 
+  isSelected, 
+  onClick 
+}: { 
+  company: string; 
+  logo: string; 
+  period: string; 
+  isSelected: boolean;
+  onClick: () => void;
+}) => {
   return (
-    <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <div 
+      className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+        isSelected 
+          ? "border-green-500 bg-green-50 dark:bg-gray-800" 
+          : "border-gray-200 dark:border-gray-700 hover:border-green-300"
+      }`}
+      onClick={onClick}
+    >
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12  relative flex-shrink-0">
+        <div className="w-12 h-12 relative flex-shrink-0">
           <Image className={'rounded-full'} width={120} height={120} src={logo} alt={company}/>
         </div>
         <div>

@@ -22,15 +22,15 @@ const Contact = () => {
 
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">
-                  <FiPhone className="text-primary w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-gray-500 dark:text-gray-400 mb-1">Phone Number</h3>
-                  <p className="text-gray-800 dark:text-gray-200 font-medium">+98-912-343-3644</p>
-                </div>
-              </div>
+              {/*<div className="flex items-start gap-4">*/}
+              {/*  <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">*/}
+              {/*    <FiPhone className="text-primary w-6 h-6" />*/}
+              {/*  </div>*/}
+              {/*  <div>*/}
+              {/*    <h3 className="text-gray-500 dark:text-gray-400 mb-1">Phone Number</h3>*/}
+              {/*    <p className="text-gray-800 dark:text-gray-200 font-medium">+98-912-</p>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
 
               <div className="flex items-start gap-4">
                 <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">
