@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { SectionContainer } from '@/components/ui/SectionContainer';
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { FiArrowLeft, FiArrowRight, FiExternalLink, FiGithub } from 'react-icons/fi';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import {  Autoplay } from 'swiper/modules';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import type { Swiper as SwiperType } from 'swiper';
@@ -73,9 +76,24 @@ const projects: Project[] = [
   },
 ];
 
-
 const Projects = () => {
   const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+
+  const allTechnologies = useMemo(() => {
+    const techs = new Set<string>();
+    projects.forEach(project => {
+      project.technologies.forEach(tech => techs.add(tech));
+    });
+    return Array.from(techs);
+  }, []);
+
+  const filteredProjects = useMemo(() => {
+    if (!selectedTech) return projects;
+    return projects.filter(project => 
+      project.technologies.includes(selectedTech)
+    );
+  }, [selectedTech]);
 
   const nextProject = () => {
     swiperRef?.slideNext();
@@ -86,132 +104,159 @@ const Projects = () => {
   };
 
   return (
-      <SectionContainer className="!p-0">
-        <div
-             style={{
-               backgroundImage: "url('/images/bg.png')",
-               backgroundRepeat: 'repeat',
-             }} className="grid bg-cover  grid-cols-1 gap-8 px-10 md:px-12 py-4 md:py-10 lg:py-12">
-          <div className="">
-            <h3 className="text-primary text-lg font-medium">• Projects</h3>
-            <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-200">My Recent Works</h2>
-          </div>
-
-          <div className="relative bg-secondary border-primary border rounded-lg p-6 min-h-[500px]">
-            <Swiper
-                onSwiper={setSwiperRef}
-                slidesPerView={1}
-                allowTouchMove={false}
-                className="relative"
-                loop={true}
-                autoplay={{ delay: 5000 }}
-                modules={[ Autoplay]}
-
+    <SectionContainer className="!p-0">
+      <div
+        style={{
+          backgroundImage: "url('/images/bg.png')",
+          backgroundRepeat: 'repeat',
+        }} 
+        className="grid bg-cover grid-cols-1 gap-8 px-10 md:px-12 py-4 md:py-10 lg:py-12"
+      >
+        <div className="space-y-4">
+          <h3 className="text-primary text-lg font-medium">• Projects</h3>
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-200">My Recent Works</h2>
+          
+          <div className="flex flex-wrap gap-2 mt-4">
+            <Button
+              variant={selectedTech === null ? "default" : "outline"}
+              onClick={() => setSelectedTech(null)}
+              className="text-sm"
             >
-              {projects.map((project) => (
-                  <SwiperSlide key={project.id + project.title}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
-                      <div className="relative aspect-video bg-secondary 0 rounded-lg">
-                        <Swiper
-                            autoplay={{ delay: 1000 }}
-                            modules={[Pagination, Autoplay]}
-                            pagination={{ clickable: true }}
-                            spaceBetween={10}
-                            slidesPerView={1}
-                            className="relative"
-                        >
-                          {project.images.map((img, idx) => (
-                              <SwiperSlide key={idx}>
-                                <div className="relative w-full h-[500px] flex justify-center items-center bg-transparent">
-                                  <Image
-                                      src={img}
-                                      alt={`${project.title} image ${idx + 1}`}
-                                      style={{objectFit:"contain"}}
-                                      priority
-                                      fill
-                                  />
-                                </div>
-                              </SwiperSlide>
-                          ))}
-                        </Swiper>
-                      </div>
+              All
+            </Button>
+            {allTechnologies.map((tech) => (
+              <Button
+                key={tech}
+                variant={selectedTech === tech ? "default" : "outline"}
+                onClick={() => setSelectedTech(tech)}
+                className="text-sm"
+              >
+                {tech}
+              </Button>
+            ))}
+          </div>
+        </div>
 
-                      <div className="flex flex-col">
-                        <h3 className="text-2xl font-bold text-green-500 mb-4">{project.title}</h3>
-                        <p className="text-gray-700 dark:text-gray-300 mb-6">{project.description}</p>
-
-                        <div className="">
-                          <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-4">Project Info</h4>
-                          <div className="space-y-4">
-                            <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                              <span className="text-gray-700 dark:text-gray-300">Client</span>
-                              <span className="text-gray-800 dark:text-gray-200 font-medium">{project.client}</span>
-                            </div>
-                            <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                              <span className="text-gray-700 dark:text-gray-300">Completion Time</span>
-                              <span className="text-gray-800 dark:text-gray-200 font-medium">{project.completionTime}</span>
-                            </div>
-                            <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                              <span className="text-gray-700 dark:text-gray-300">Technologies</span>
-                              <span className="text-gray-800 dark:text-gray-200 font-medium">
-                            {project.technologies.join(', ')}
-                          </span>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-4 mt-6">
-                            {project.liveDemo && (
-                                <a
-                                    href={project.liveDemo}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center text-gray-800 dark:text-gray-200 hover:text-green-500 transition-colors"
-                                >
-                                  <FiArrowRight className="w-4 h-4 mr-2" />
-                                  Live Demo
-                                </a>
-                            )}
-                            {project.github && (
-                                <a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center text-gray-800 dark:text-gray-200 hover:text-green-500 transition-colors"
-                                >
-                                  <FiArrowRight className="w-4 h-4 mr-2" />
-                                  View on Github
-                                </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedTech}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-secondary border-primary border rounded-lg p-6 min-h-[500px]"
+          >
+            <Swiper
+              onSwiper={setSwiperRef}
+              slidesPerView={1}
+              allowTouchMove={false}
+              className="relative"
+              loop={true}
+              autoplay={{ delay: 5000 }}
+              modules={[Autoplay]}
+            >
+              {filteredProjects.map((project) => (
+                <SwiperSlide key={project.id + project.title}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
+                    <div className="flex items-center justify-center bg-white rounded-lg p-4 w-full h-[320px] md:h-[400px]">
+                      <Image
+                        src={project.images[0]}
+                        alt={`${project.title} image 1`}
+                        className="object-contain w-auto h-full max-h-full"
+                        width={600}
+                        height={400}
+                        priority
+                      />
                     </div>
 
-                  </SwiperSlide>
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span className="font-medium">Client:</span>
+                          <span>{project.client}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span className="font-medium">Duration:</span>
+                          <span>{project.completionTime}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech) => (
+                          <Badge
+                            key={tech}
+                            variant="secondary"
+                            className="text-sm"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-4">
+                        {project.liveDemo && (
+                          <a
+                            href={project.liveDemo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                          >
+                            <FiExternalLink className="w-4 h-4" />
+                            Live Demo
+                          </a>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                          >
+                            <FiGithub className="w-4 h-4" />
+                            View on Github
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
               ))}
             </Swiper>
-            <div className="flex justify-end gap-2">
-              <button
-                  onClick={prevProject}
-                  className="w-12 h-12 rounded-full bg-muted cursor-pointer   flex items-center justify-center  hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
-                  aria-label="Previous project"
-              >
-                <FiArrowLeft className="w-5 h-5" />
-              </button>
 
-              <button
-                  onClick={nextProject}
-                  className="w-12 h-12 rounded-full bg-muted cursor-pointer  flex items-center justify-center  hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
-                  aria-label="Next project"
+            <div className="absolute bottom-6 right-6 flex gap-4">
+              <Button
+                onClick={prevProject}
+                variant="outline"
+                size="icon"
+                className="w-10 h-10 rounded-full"
+                aria-label="Previous project"
               >
-                <FiArrowRight className="w-5 h-5" />
-              </button>
+                <FiArrowLeft className="w-4 h-4" />
+              </Button>
+
+              <Button
+                onClick={nextProject}
+                variant="outline"
+                size="icon"
+                className="w-10 h-10 rounded-full"
+                aria-label="Next project"
+              >
+                <FiArrowRight className="w-4 h-4" />
+              </Button>
             </div>
-          </div>
-
-
-        </div>
-      </SectionContainer>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </SectionContainer>
   );
 };
 

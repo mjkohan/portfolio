@@ -1,14 +1,13 @@
-
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-
+import { motion, useAnimation, useInView } from 'framer-motion';
 
 import Html5Icon from '../../../public/logos/html5.svg';
 import Css3Icon from '../../../public/logos/css.svg';
@@ -42,18 +41,60 @@ const techStack = [
     { name: 'GraphQL', Icon: GraphqlIcon, color: '#E10098' },
 ];
 
+const duplicatedStack = [...techStack, ...techStack];
+
 export function TechStack() {
-    const duplicatedStack = [...techStack, ...techStack, ...techStack];
+    const rowRef = useRef<HTMLDivElement>(null);
+    const controls = useAnimation();
+    const isInView = useInView(rowRef, { once: false });
+
+    React.useEffect(() => {
+        let animationId: number;
+        let start: number | null = null;
+        const paused = false;
+        const speed = 30; // px per second
+        const row = rowRef.current;
+        if (!row) return;
+        const rowWidth = row.scrollWidth / 2;
+
+        function animate(time: number) {
+            if (paused) return;
+            if (start === null) start = time;
+            const elapsed = (time - start) / 1000;
+            const x = -((elapsed * speed) % rowWidth);
+            controls.set({ x });
+            animationId = requestAnimationFrame(animate);
+        }
+        if (isInView) {
+            animationId = requestAnimationFrame(animate);
+        }
+        return () => {
+            cancelAnimationFrame(animationId);
+        };
+    }, [controls, isInView]);
+
+    // Pause on hover
+    const handleMouseEnter = () => controls.stop();
+    const handleMouseLeave = () => {
+        controls.start({}); // resume
+    };
 
     return (
-        <div className="overflow-hidden w-full max-w-full">
-            <div className="flex whitespace-nowrap animate-[marquee_20s_linear_infinite]">
+        <div className="relative w-full max-w-full overflow-hidden select-none">
+            <motion.div
+                ref={rowRef}
+                className="flex"
+                animate={controls}
+                style={{ x: 0 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
                 {duplicatedStack.map(({ name, Icon, color }, index) => (
                     <TooltipProvider key={`${name}-${index}`}>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <div className="inline-flex bg-white  w-12 h-12 mx-2 items-center justify-center rounded-md p-2 transition-transform hover:scale-110 flex-shrink-0">
-                                    <Icon fill={color} className={"w-8 h-8 " }  />
+                                <div className="inline-flex bg-white w-12 h-12 mx-2 items-center justify-center rounded-md p-2 transition-transform hover:scale-110 flex-shrink-0">
+                                    <Icon fill={color} className="w-8 h-8" />
                                 </div>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -62,7 +103,7 @@ export function TechStack() {
                         </Tooltip>
                     </TooltipProvider>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 }
