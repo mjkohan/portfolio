@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   keywords: [ "Mohammad Javad", "kohankan",
     "محمدجواد کهن کن", "typescript", "Front-End Developer", "Web Development", "React", "Next.js", "JavaScript", "tailwind"
   ],
-  authors: [{ name: "Mohammad Javad Kohankan", url: "https://portfolio-beige-seven-69.vercel.app/" }],
+  authors: [{ name: "Mohammad Javad Kohankan", url: "https://kohankan.vercel.app/" }],
   creator: "Mohammad Javad Kohankan",
   openGraph: {
     title: "Mohammad Javad Kohankan- Front-End Developer",
     description: "Experienced Front-End Developer specializing in building responsive and user-friendly web applications.",
-    url: "https://your-portfolio-url.com",
+    url: "https://kohankan.vercel.app/",
     siteName: "Mohammad Javad Kohankan Portfolio",
     images: [
       {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-  metadataBase: new URL("https://portfolio-beige-seven-69.vercel.app/"),
+  metadataBase: new URL("https://kohankan.vercel.app/"),
   other : {"google-site-verification":"yzjWgZLvhgWIfeiXXdgkyWKooXWHpsGvf3Kpv61MWlk"}
 };
 export default function RootLayout({
