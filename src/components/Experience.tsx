@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
-type CompanyKey = "Acsid Maad" | "Badals" | "Pixium Labs";
+type CompanyKey = "Dana Pardaz" | "Acsid Maad" | "Badals" | "Pixium Labs";
 
 interface ExperienceCardProps {
   company: CompanyKey;
@@ -63,13 +63,25 @@ const TechBadge = ({ name }: { name: string }) => (
 );
 
 const Experience = () => {
-  const [selectedCompany, setSelectedCompany] = useState<CompanyKey>("Acsid Maad");
+  const [selectedCompany, setSelectedCompany] = useState<CompanyKey>("Dana Pardaz");
 
   const experienceData: Record<CompanyKey, {
     title: string;
     description: string[];
     technologies: string[];
   }> = {
+    "Dana Pardaz": {
+      title: "Front-End Developer",
+      description: [
+        "Led migration of legacy CRM system to Next.js, reducing page load times by 60% and improving Core Web Vitals scores",
+        "Built modular and extensible architecture using Ant Design component library, enabling rapid feature development and easy maintenance",
+        "Designed scalable module‑based structure using SOLID design patterns and monorepo architecture, enabling seamless integration of new features without impacting existing functionality",
+        "Applied system design principles to create robust, maintainable architecture with clear separation of concerns and modular components",
+        "Created comprehensive technical documentation including API guides, migration procedures, and component libraries for team reference",
+        "Leveraged AI‑powered tools for code generation and documentation, reducing development time and improving code quality through intelligent suggestions and error detection"
+      ],
+      technologies: ["Next.js", "Azure DevOps", "TypeScript", "Ant Design", "Redux"]
+    },
     "Acsid Maad": {
       title: "Front-End Developer",
       description: [
@@ -118,6 +130,13 @@ const Experience = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="col-span-1 space-y-4">
+            <ExperienceCard 
+              company="Dana Pardaz"
+              logo="/images/dana.jpg"
+              period="Sep 2025 - Present"
+              isSelected={selectedCompany === "Dana Pardaz"}
+              onClick={() => setSelectedCompany("Dana Pardaz")}
+            />
             <ExperienceCard 
               company="Acsid Maad"
               logo="/images/ac.png"

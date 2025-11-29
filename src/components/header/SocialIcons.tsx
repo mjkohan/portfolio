@@ -7,7 +7,7 @@ type Props = {
 
 export default function SocialIcons({ className = '' }: Props) {
     const icons = [
-        { href: 'https://linkedin.com/in/mohammadjavad-kohankan-78671b20b', Icon: Linkedin },
+        { href: 'www.linkedin.com/in/mohammadjavad-kohankan', Icon: Linkedin },
         { href: 'https://github.com/mjkohan', Icon: Github },
     ];
 

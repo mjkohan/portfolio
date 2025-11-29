@@ -28,6 +28,15 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: 'FNT (Financial News Tracker)',
+    description: 'FNT is a full-stack financial news management platform designed to track, categorize, and analyze news with a dynamic UI and advanced filters. Built with Next.js and Shadcn on the frontend, the platform features a robust backend using Express.js and Prisma with PostgreSQL database. The system incorporates Redis caching for improved performance and is fully containerized with Docker for seamless deployment and scalability.',
+    images: ['/images/4.png','/images/6.png','/images/7.png','/images/8.png','/images/9.png'],
+    client: 'Self-Project',
+    completionTime: '3 months',
+    technologies: ['Next js', 'Shadcn', 'Express.js', 'PostgreSQL', 'Prisma', 'Docker', 'Redis'],
+  },
+  {
+    id: 2,
     title: 'Taskium',
     description: 'Taskium is an advanced task management application designed to help individuals and teams organize their work efficiently. The platform includes features such as recurring tasks, reminders, customizable categories, and progress tracking. Users can manage daily, weekly, or project-based to-dos with flexibility and ease. The intuitive UI and responsive design enhance productivity and make task organization seamless across devices.',
     images: ['/images/p1_1.jpg', '/images/p1_2.jpg', '/images/p1_3.jpg', '/images/p1_4.jpg', '/images/p1_5.jpg'],
@@ -36,7 +45,7 @@ const projects: Project[] = [
     technologies: ['React', 'JavaScript', 'Stripe'],
   },
   {
-    id: 2,
+    id: 3,
     title: 'UltraTrader',
     description: 'UltraTrader is a financial journaling web app designed for traders and investors to document, analyze, and track their trading activity. It offers real-time market data, performance visualization tools, and detailed statistics to help users evaluate and optimize their trading strategies. The platform also supports integration with various exchanges and brokers for seamless transaction import and portfolio synchronization.',
     images: ['/images/p2_1.png', '/images/p2_2.webp'],
@@ -46,7 +55,7 @@ const projects: Project[] = [
     liveDemo: 'https://ultratrader.app/',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Accounting System',
     description: 'This Accounting System is a web-based solution tailored for small to medium-sized businesses to manage their finances. It features modules for expense tracking, income reporting, invoice generation, balance sheets, and real-time financial dashboards. The system offers role-based access and supports multi-currency accounting, providing a comprehensive overview of financial operations in one place.',
     images: ['/images/p3_1.png'],
@@ -55,7 +64,7 @@ const projects: Project[] = [
     technologies: ['Next js', 'Tailwind'],
   },
   {
-    id: 4,
+    id: 5,
     title: 'Wasil',
     description: 'Wasil is a logistics and shipping app that enables users to send products from the United States to Oman with ease. The platform simplifies package tracking, delivery status updates, customs documentation, and price estimation. Built for both individual users and small businesses, it ensures a smooth, reliable international shipping experience with a modern user interface.',
     images: ['/images/p4_1.png', '/images/p4_2.png'],
@@ -65,7 +74,7 @@ const projects: Project[] = [
     liveDemo: 'https://wa9il.me/',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Badals',
     description: 'Badals is a modern e-commerce platform that connects users with global brands such as Amazon, Nike, and more. It allows customers in the MENA region to browse, purchase, and receive products from international retailers. With features like product search, smart filtering, cart management, order tracking, and integration with global suppliers, Badals offers a seamless cross-border shopping experience.',
     images: ['/images/p5_1.png', '/images/p5_2.png'],

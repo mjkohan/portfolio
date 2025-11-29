@@ -84,7 +84,7 @@ export function StatsCounter() {
                 />
                 <CounterItem
                     icon={<MdComputer className="text-3xl" />}
-                    endValue={14}
+                    endValue={16}
                     label="Projects Completed"
                 />
 

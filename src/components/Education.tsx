@@ -13,6 +13,10 @@ interface EducationItem {
 
 const educationData: EducationItem[] = [
   {
+    period: '2025-Present',
+    institution: 'Shahid Beheshti University',
+    degree: 'Master of Science in Information Technology'
+  },{
     period: '2020-2025',
     institution: 'K. N. Toosi University of Technology',
     degree: 'Computer Engineering Bachelor'
