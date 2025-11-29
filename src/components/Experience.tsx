@@ -22,9 +22,9 @@ const ExperienceCard = ({ company, logo, period, isSelected, onClick }: Experien
     whileTap={{ scale: 0.98 }}
     onClick={onClick}
     className={cn(
-      "w-full p-4 rounded-lg border transition-all duration-200",
+      "w-full p-4 rounded-lg bg-secondary border transition-all duration-200",
       isSelected
-        ? "border-primary bg-primary/5"
+        ? "border-primary "
         : "border-border hover:border-primary/50"
     )}
   >
@@ -49,18 +49,57 @@ const ExperienceItem = ({ text }: { text: string }) => (
   <motion.li
     initial={{ opacity: 0, x: -20 }}
     animate={{ opacity: 1, x: 0 }}
-    className="flex items-start gap-2"
+    className="flex gap-2"
   >
-    <span className="text-primary mt-1">•</span>
-    <span className="text-muted-foreground">{text}</span>
+    <span className="text-primary shrink-0 leading-[1.5]">•</span>
+    <span className="text-muted-foreground leading-[1.5]">{text}</span>
   </motion.li>
 );
 
 const TechBadge = ({ name }: { name: string }) => (
-  <Badge variant="secondary" className="text-sm">
+  <Badge variant="outline" className="text-sm">
     {name}
   </Badge>
 );
+
+const calculateDuration = (startDate: string, endDate: string | null): string => {
+  const start = new Date(startDate);
+  const end = endDate ? new Date(endDate) : new Date();
+  
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
+  const parts: string[] = [];
+  if (years > 0) {
+    parts.push(`${years} ${years === 1 ? 'yr' : 'yrs'}`);
+  }
+  if (months > 0) {
+    parts.push(`${months} ${months === 1 ? 'mo' : 'mos'}`);
+  }
+  
+  return parts.length > 0 ? parts.join(' ') : '0 mos';
+};
+
+const formatPeriod = (startDate: string, endDate: string | null): string => {
+  const start = new Date(startDate);
+  const end = endDate ? new Date(endDate) : null;
+  
+  const formatDate = (date: Date): string => {
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  };
+  
+  const startFormatted = formatDate(start);
+  const endFormatted = end ? formatDate(end) : 'Present';
+  const duration = calculateDuration(startDate, endDate);
+  
+  return `${startFormatted} ‑ ${endFormatted} · ${duration}`;
+};
 
 const Experience = () => {
   const [selectedCompany, setSelectedCompany] = useState<CompanyKey>("Dana Pardaz");
@@ -71,43 +110,35 @@ const Experience = () => {
     technologies: string[];
   }> = {
     "Dana Pardaz": {
-      title: "Front-End Developer",
+      title: "Frontend Developer",
       description: [
-        "Led migration of legacy CRM system to Next.js, reducing page load times by 60% and improving Core Web Vitals scores",
-        "Built modular and extensible architecture using Ant Design component library, enabling rapid feature development and easy maintenance",
-        "Designed scalable module‑based structure using SOLID design patterns and monorepo architecture, enabling seamless integration of new features without impacting existing functionality",
-        "Applied system design principles to create robust, maintainable architecture with clear separation of concerns and modular components",
-        "Created comprehensive technical documentation including API guides, migration procedures, and component libraries for team reference",
-        "Leveraged AI‑powered tools for code generation and documentation, reducing development time and improving code quality through intelligent suggestions and error detection"
+        "Migrated a legacy CRM system to Next.js, cutting page load times by 60% and boosting Core Web Vitals scores",
+        "Built a modular, scalable architecture with Ant Design and SOLID principles that makes adding features easier",
+        "Created technical documentation and used AI tools to speed up development and improve code quality"
       ],
       technologies: ["Next.js", "Azure DevOps", "TypeScript", "Ant Design", "Redux"]
     },
     "Acsid Maad": {
-      title: "Front-End Developer",
+      title: "Frontend Developer",
       description: [
-        "Designed and developed a web‑based systems using Next.js, ",
-        "Integrated authentication and authorization mechanisms for secure user access and role‑based management",
-        "Collaborated closely with backend developers to design and consume RESTful APIs for financial transactions and reporting."
+        "Built a web-based accounting system with Next.js that automated manual work and cut operational time by 70%",
+        "Set up automated workflows for invoices and financial reports, and optimized performance with SSR and caching for real-time data processing"
       ],
       technologies: ["Next.js", "JavaScript", "TypeScript", "SHADCN/UI", "Zustand"]
     },
     "Badals": {
-      title: "Front-End Developer",
+      title: "Frontend Developer",
       description: [
-        "Developed front‑end applications using TypeScript and Next.js, implemented dynamic and interactive UI components, optimized performance for better user experience, integrated GraphQL APIs, and handled authentication using Context API",
-        "Integrated payment gateways such as Thawani and Stripe, and implemented seamless order tracking with FedEx shipment services",
-        "Designed and implemented a scalable multi‑tenant and multi‑language architecture for front‑end applications, ensuring adaptability and maintainability.",
-        "Developed a visually appealing and responsive landing page to enhance user engagement and brand presence."
+        "Built a scalable e-commerce platform with an admin dashboard for real-time analytics, inventory, and order processing",
+        "Optimized checkout flow and product pages to increase conversion rates, with responsive design across all devices"
       ],
       technologies: ["Next.js", "JavaScript", "TypeScript", "Tailwind", "MUI", "GraphQl"]
     },
     "Pixium Labs": {
-      title: "Front-End Engineer",
+      title: "Frontend Developer",
       description: [
-        "Developed responsive and scalable web applications using React.js and Tailwind CSS, ensuring seamless user experiences.",
-        "Integrated and optimized RESTful APIs for efficient data fetching and state management",
-        "Implemented advanced UI components, dynamic dashboards, and real‑time features to enhance user engagement.",
-        "Utilized Google Analytics and other tracking tools to monitor user interactions, improve performance, and optimize user experience."
+        "Built a fast, responsive trading platform with React.js showing real-time market data and live price updates",
+        "Did SEO optimization to increase organic traffic and created a reusable component library for faster development"
       ],
       technologies: ["React.js", "Next.js", "JavaScript", "Tailwind"]
     }
@@ -133,28 +164,28 @@ const Experience = () => {
             <ExperienceCard 
               company="Dana Pardaz"
               logo="/images/dana.jpg"
-              period="Sep 2025 - Present"
+              period={formatPeriod("2025-09-01", null)}
               isSelected={selectedCompany === "Dana Pardaz"}
               onClick={() => setSelectedCompany("Dana Pardaz")}
             />
             <ExperienceCard 
               company="Acsid Maad"
               logo="/images/ac.png"
-              period="2024 - 2025"
+              period={formatPeriod("2024-07-01", "2025-09-01")}
               isSelected={selectedCompany === "Acsid Maad"}
               onClick={() => setSelectedCompany("Acsid Maad")}
             />
             <ExperienceCard 
               company="Badals"
               logo="/images/badals.jpg"
-              period="2023 - 2024"
+              period={formatPeriod("2023-09-01", "2024-07-01")}
               isSelected={selectedCompany === "Badals"}
               onClick={() => setSelectedCompany("Badals")}
             />
             <ExperienceCard 
               company="Pixium Labs"
               logo="/images/pixium.jpg"
-              period="2021 - 2023"
+              period={formatPeriod("2021-07-01", "2023-05-01")}
               isSelected={selectedCompany === "Pixium Labs"}
               onClick={() => setSelectedCompany("Pixium Labs")}
             />
@@ -169,12 +200,12 @@ const Experience = () => {
               transition={{ duration: 0.3 }}
               className="col-span-1 md:col-span-2 bg-secondary border border-border rounded-lg p-6"
             >
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                  <h3 className="text-xl font-bold text-foreground mb-3">
                     {experienceData[selectedCompany].title}
                   </h3>
-                  <ul className="space-y-4">
+                  <ul className="space-y-2">
                     {experienceData[selectedCompany].description.map((text, index) => (
                       <ExperienceItem key={index} text={text} />
                     ))}

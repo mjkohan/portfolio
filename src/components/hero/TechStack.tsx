@@ -93,8 +93,8 @@ export function TechStack() {
                     <TooltipProvider key={`${name}-${index}`}>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <div className="inline-flex bg-white w-12 h-12 mx-2 items-center justify-center rounded-md p-2 transition-transform hover:scale-110 flex-shrink-0">
-                                    <Icon fill={color} className="w-8 h-8" />
+                                <div className="inline-flex bg-white w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-1.5 sm:mx-2 items-center justify-center rounded-md p-1.5 sm:p-2 transition-transform hover:scale-110 flex-shrink-0">
+                                    <Icon fill={color} className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
                                 </div>
                             </TooltipTrigger>
                             <TooltipContent>

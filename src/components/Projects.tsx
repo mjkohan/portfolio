@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { FiArrowLeft, FiArrowRight, FiExternalLink, FiGithub } from 'react-icons/fi';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {  Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -167,15 +167,34 @@ const Projects = () => {
               {filteredProjects.map((project) => (
                 <SwiperSlide key={project.id + project.title}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
-                    <div className="flex items-center justify-center bg-white rounded-lg p-4 w-full h-[320px] md:h-[400px]">
-                      <Image
-                        src={project.images[0]}
-                        alt={`${project.title} image 1`}
-                        className="object-contain w-auto h-full max-h-full"
-                        width={600}
-                        height={400}
-                        priority
-                      />
+                    <div className="relative bg-white rounded-lg p-4 w-full h-[320px] md:h-[400px]">
+                      <Swiper
+                        slidesPerView={1}
+                        loop={project.images.length > 1}
+                        autoplay={{
+                          delay: 3000,
+                          disableOnInteraction: false,
+                        }}
+                        pagination={{
+                          clickable: true,
+                          dynamicBullets: true,
+                        }}
+                        modules={[Autoplay, Pagination]}
+                        className="h-full w-full"
+                      >
+                        {project.images.map((image, index) => (
+                          <SwiperSlide key={image} className="flex items-center justify-center">
+                            <Image
+                              src={image}
+                              alt={`${project.title} image ${index + 1}`}
+                              className="object-contain w-auto h-full max-h-full"
+                              width={600}
+                              height={400}
+                              priority={index === 0}
+                            />
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
                     </div>
 
                     <div className="space-y-6">
